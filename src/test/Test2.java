@@ -1,5 +1,9 @@
 package test;
 
+import logic_circuit.flipflop.register.$74LS194;
+import logic_circuit.tools.decoder.S7Displayer;
+import logic_circuit.tools.showpanel.ShowPanel;
+
 public class Test2 {
     public static void main(String[] args) throws InterruptedException {
 
@@ -38,10 +42,11 @@ public class Test2 {
 //        sp.showPanel();
 
         //Ä£Äâ7¶ÎÒëÂëÆ÷
-//        S7Displayer d = new S7Displayer();
-//        ShowPanel sp = new ShowPanel();
-//        sp.addInPorts(d.getA3(), d.getA2(), d.getA1(), d.getA0());
-//        sp.showPanel();
+        S7Displayer d = new S7Displayer();
+        ShowPanel sp = new ShowPanel();
+        sp.addInPorts(d.get_LT(),d.get_BIRBO(),d.getA3(), d.getA2(), d.getA1(), d.getA0());
+        sp.addOutPorts(d.getYa());
+        sp.showPanel();
 
         //Ë«ÏòÒÆÎ»¼Ä´æÆ÷
 //        $74LS194 ls194 = new $74LS194();

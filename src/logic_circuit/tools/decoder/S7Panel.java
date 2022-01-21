@@ -17,7 +17,8 @@ public class S7Panel extends JPanel{
     public static final int P = 15;
     public static final Color logic0 = new Color(224, 233, 218);
     public static final Color logic1 = new Color(244, 68, 51);
-    private A_S7Decoder s7 = new A_S7Decoder();
+//    private A_S7Decoder s7 = new A_S7Decoder();
+    private S7Decoder s7 = new S7Decoder();
 
     private JButton a = CompFactory.createButton1(""),
                      b = CompFactory.createButton1(""),
@@ -76,16 +77,7 @@ public class S7Panel extends JPanel{
         });
     }
 
-    public Port getA0(){
-        return s7.getA0();
-    }
-    public Port getA1(){
-        return s7.getA1();
-    }
-    public Port getA2(){
-        return s7.getA2();
-    }
-    public Port getA3(){
-        return s7.getA3();
+    public S7Decoder getS7(){
+        return s7;
     }
 }

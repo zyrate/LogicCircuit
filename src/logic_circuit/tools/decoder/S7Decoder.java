@@ -9,8 +9,15 @@ import logic_circuit.base.wire.Wire;
 
 
 /**
- * 7段显示译码器 - 失败！
- * _BIRBO具有输入和输出双重功能
+ * 7段显示译码器 - 失败！- 成功！
+ * _BIRBO具有输入和输出双重功能，_BI为灭灯输入，_RBO为灭零输出
+ *
+ * 1.一个非门(输出加圈)，当其输入端也加圈时只是表示低电平有效，不用管它。- 这是错的！！！非门两端加圈就是相当于没这个门！
+ * 2.非门有时候是只在输入端加圈
+ * 3.才发现a,b,c,d,e,f,G这些中间与门的输出端都没有往后接，能显示才怪
+ * 4.破案了，我看的逻辑图没错，已经好了
+ * 5._RBO好像是专门为多位数字显示使用的，可不管他
+ * 6._BIRBO的双重功能好像实现不了，就只管输入吧
  */
 public class S7Decoder {
     private Port A0 = new Port("A0"),
@@ -31,7 +38,7 @@ public class S7Decoder {
     private NotGate g1 = new NotGate(),
                     g8 = new NotGate();
 
-    private AndGate g3 = new AndGate(6, false),
+    private AndGate g3 = new AndGate(6, false), //g3就是为了给_BIRBO端口输出的
                     g5 = new AndGate(false),
                     g6 = new AndGate(false),
                     g7 = new AndGate(false),
@@ -65,19 +72,19 @@ public class S7Decoder {
                     g18 = new OrGate(3,false),
                     g19 = new OrGate(false);
 
-    private HubGate h = new HubGate(false);
+    //不需要集线门
+    //private HubGate h = new HubGate(false);
 
     public S7Decoder(){
         new Wire(A0, g5.inPort());
         new Wire(A1, g6.inPort());
         new Wire(A2, g7.inPort());
         new Wire(A3, g8.inPort());
-        new Wire(_BIRBO, h.inPort());
-        new Wire(g3.outPort, h.inPort());
-        new Wire(h.outPort, g9.inPort());
-        new Wire(h.outPort, g10.inPort());
-        new Wire(h.outPort, g11.inPort());
-        new Wire(h.outPort, g12.inPort());
+        //new Wire(g3.outPort, _BIRBO);
+        new Wire(_BIRBO, g9.inPort());
+        new Wire(_BIRBO, g10.inPort());
+        new Wire(_BIRBO, g11.inPort());
+        new Wire(_BIRBO, g12.inPort());
         new Wire(_LT, g3.inPort());
         new Wire(_LT, g5.inPort());
         new Wire(_LT, g6.inPort());
@@ -121,7 +128,7 @@ public class S7Decoder {
         new Wire(g9.outPort, b2.inPort());
         new Wire(g9.outPort, d1.inPort());
         new Wire(g9.outPort, d3.inPort());
-        new Wire(g9.outPort, g17.inPort());//
+        new Wire(g9.outPort, g17.inPort());//这里省略了一个单输入与门
         new Wire(g9.outPort, f1.inPort());
         new Wire(g9.outPort, f3.inPort());
         new Wire(g9.outPort, G1.inPort());
@@ -148,6 +155,25 @@ public class S7Decoder {
         new Wire(g12.outPort, b1.inPort());
         new Wire(g12.outPort, c1.inPort());
 
+        //与或非门忘记连成整体了
+        new Wire(a1.outPort, g13.inPort());
+        new Wire(a2.outPort, g13.inPort());
+        new Wire(a3.outPort, g13.inPort());
+        new Wire(b1.outPort, g14.inPort());
+        new Wire(b2.outPort, g14.inPort());
+        new Wire(b3.outPort, g14.inPort());
+        new Wire(c1.outPort, g15.inPort());
+        new Wire(c2.outPort, g15.inPort());
+        new Wire(d1.outPort, g16.inPort());
+        new Wire(d2.outPort, g16.inPort());
+        new Wire(d3.outPort, g16.inPort());
+        new Wire(e.outPort, g17.inPort());
+        new Wire(f1.outPort, g18.inPort());
+        new Wire(f2.outPort, g18.inPort());
+        new Wire(f3.outPort, g18.inPort());
+        new Wire(G1.outPort, g19.inPort());
+        new Wire(G2.outPort, g19.inPort());
+
         //输出
         new Wire(g13.outPort, Ya);
         new Wire(g14.outPort, Yb);
@@ -156,6 +182,7 @@ public class S7Decoder {
         new Wire(g17.outPort, Ye);
         new Wire(g18.outPort, Yf);
         new Wire(g19.outPort, Yg);
+
     }
 
     public void input(int a3, int a2, int a1, int a0, int _lt, int _rbi, int _birbo){
