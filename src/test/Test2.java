@@ -1,6 +1,8 @@
 package test;
 
+import logic_circuit.flipflop.counter.$74LS191;
 import logic_circuit.flipflop.register.$74LS194;
+import logic_circuit.product.TrafficLight;
 import logic_circuit.tools.decoder.S7Displayer;
 import logic_circuit.tools.showpanel.ShowPanel;
 
@@ -41,12 +43,12 @@ public class Test2 {
 //                s7.getYf(), s7.getYg());
 //        sp.showPanel();
 
-        //Ä£Äâ7¶ÎÒëÂëÆ÷
-        S7Displayer d = new S7Displayer();
-        ShowPanel sp = new ShowPanel();
-        sp.addInPorts(d.get_LT(),d.get_BIRBO(),d.getA3(), d.getA2(), d.getA1(), d.getA0());
-        sp.addOutPorts(d.getYa());
-        sp.showPanel();
+        //7¶ÎÒëÂëÆ÷ - ³É¹¦
+//        S7Displayer d = new S7Displayer();
+//        ShowPanel sp = new ShowPanel();
+//        sp.addInPorts(d.get_LT(),d.get_BIRBO(),d.getA3(), d.getA2(), d.getA1(), d.getA0());
+//        sp.addOutPorts(d.getYa());
+//        sp.showPanel();
 
         //Ë«ÏòÒÆÎ»¼Ä´æÆ÷
 //        $74LS194 ls194 = new $74LS194();
@@ -54,6 +56,23 @@ public class Test2 {
 //        sp.addInPorts(ls194.get_CR(), ls194.getM1(), ls194.getM0(), ls194.getDsl(),
 //                ls194.getDsr(), ls194.getCP(), ls194.getD0(), ls194.getD1(), ls194.getD2(), ls194.getD3());
 //        sp.addOutPorts(ls194.getQ0(), ls194.getQ1(), ls194.getQ2(), ls194.getQ3());
+//        sp.showPanel();
+
+        //ºìÂÌµÆ
+       TrafficLight light = new TrafficLight();
+       ShowPanel sp = new ShowPanel("ºìÂÌµÆ");
+       sp.addInPorts(light.pCp, light.ls1.get_CR(), light.ls2.get_CR());
+       sp.addOutPorts(light.ls1.getQ0(), light.ls1.getQ1(), light.ls1.getQ2(), light.ls1.getQ3(),
+               light.ls2.getQ0(), light.ls2.getQ1(), light.ls2.getQ2(), light.ls2.getQ3());
+       sp.showPanel();
+
+        //¼ÆÊýÆ÷74LS191
+//        $74LS191 ls191 = new $74LS191();
+//        ShowPanel sp = new ShowPanel();
+//        sp.addInPorts(ls191.getCP(), ls191.get_UD(), ls191.get_LD(), ls191.get_CT(),
+//                ls191.getD3(), ls191.getD2(), ls191.getD1(), ls191.getD0());
+//        sp.addOutPorts(ls191.get_RC(), ls191.getCOBO(), ls191.getQ3(),
+//                ls191.getQ2(), ls191.getQ1(), ls191.getQ0());
 //        sp.showPanel();
 
     }
