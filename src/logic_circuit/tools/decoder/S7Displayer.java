@@ -31,17 +31,17 @@ public class S7Displayer extends JFrame{
     public Port getA3(){
         return p.getS7().getA3();
     }
-    public Port get_BIRBO(){
-        return p.getS7().get_BIRBO();
-    }
-    public Port get_LT(){
-        return p.getS7().get_LT();
-    }
-    public Port get_RBI(){
-        return p.getS7().get_RBI();
-    }public Port getYa(){
-        return p.getS7().getYa();
-    }
+//    public Port get_BIRBO(){
+//        return p.getS7().get_BIRBO();
+//    }
+//    public Port get_LT(){
+//        return p.getS7().get_LT();
+//    }
+//    public Port get_RBI(){
+//        return p.getS7().get_RBI();
+//    }public Port getYa(){
+//        return p.getS7().getYa();
+//    }
     public Port getYb(){
         return p.getS7().getYb();
     }
